@@ -45,7 +45,8 @@
 
         <service
             android:name="com.here.android.mpa.service.MapService"
-            android:label="HereMapService">
+            android:label="HereMapService"
+            android:exported="true">
             <intent-filter>
                 <!--Note, action name should not be changed.-->
                 <action android:name="com.here.android.mpa.service.MapService.v3" />
@@ -66,7 +67,8 @@
             android:name=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -74,7 +76,8 @@
         </activity>
         <activity
             android:name=".DJIConnectionControlActivity"
-            android:theme="@android:style/Theme.Translucent">
+            android:theme="@android:style/Theme.Translucent"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
             </intent-filter>

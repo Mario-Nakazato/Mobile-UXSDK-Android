@@ -7,18 +7,19 @@ repositories {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion '30.0.2'
     defaultConfig {
         applicationId "com.dji.ux.sample"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion 21
+        //noinspection OldTargetApi,EditedTargetSdkVersion
+        targetSdkVersion 31
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         ndk {
             // On x86 devices that run Android API 23 or above, if the application is targeted with API 23 or
             // above, FFmpeg lib might lead to runtime crashes or warnings.
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
     }
     buildTypes {
@@ -33,42 +34,14 @@ android {
     lintOptions{
         abortOnError false
     }
-    packagingOptions{
-        doNotStrip "*/*/libdjivideo.so"
-        doNotStrip "*/*/libSDKRelativeJNI.so"
-        doNotStrip "*/*/libFlyForbid.so"
-        doNotStrip "*/*/libduml_vision_bokeh.so"
-        doNotStrip "*/*/libyuv2.so"
-        doNotStrip "*/*/libGroudStation.so"
-        doNotStrip "*/*/libFRCorkscrew.so"
-        doNotStrip "*/*/libUpgradeVerify.so"
-        doNotStrip "*/*/libFR.so"
-        doNotStrip "*/*/libDJIFlySafeCore.so"
-        doNotStrip "*/*/libdjifs_jni.so"
-        doNotStrip "*/*/libsfjni.so"
-        doNotStrip "*/*/libDJICommonJNI.so"
-        doNotStrip "*/*/libDJICSDKCommon.so"
-        doNotStrip "*/*/libDJIUpgradeCore.so"
-        doNotStrip "*/*/libDJIUpgradeJNI.so"
-        doNotStrip "*/*/libDJIWaypointV2Core.so"
-        doNotStrip "*/*/libAMapSDK_MAP_v6_9_2.so"
-        doNotStrip "*/*/libDJIMOP.so"
-        doNotStrip "*/*/libDJISDKLOGJNI.so"
-
-        pickFirst 'lib/*/libstlport_shared.so'
-        pickFirst 'lib/*/libRoadLineRebuildAPI.so'
-        pickFirst 'lib/*/libGNaviUtils.so'
-        pickFirst 'lib/*/libGNaviMapex.so'
-        pickFirst 'lib/*/libGNaviData.so'
-        pickFirst 'lib/*/libGNaviMap.so'
-        pickFirst 'lib/*/libGNaviSearch.so'
-        pickFirst 'lib/*/libDJIFlySafeCore.so'
-        pickFirst 'lib/*/libdjifs_jni.so'
-        pickFirst 'lib/*/libsfjni.so'
-        exclude 'META-INF/proguard/okhttp3.pro'
-        exclude 'META-INF/rxjava.properties'
-        exclude 'assets/location_map_gps_locked.png'
-        exclude 'assets/location_map_gps_3d.png'
+    packagingOptions {
+        jniLibs {
+            keepDebugSymbols += ['*/*/libdjivideo.so', '*/*/libSDKRelativeJNI.so', '*/*/libFlyForbid.so', '*/*/libduml_vision_bokeh.so', '*/*/libyuv2.so', '*/*/libGroudStation.so', '*/*/libFRCorkscrew.so', '*/*/libUpgradeVerify.so', '*/*/libFR.so', '*/*/libDJIFlySafeCore.so', '*/*/libdjifs_jni.so', '*/*/libsfjni.so', '*/*/libDJICommonJNI.so', '*/*/libDJICSDKCommon.so', '*/*/libDJIUpgradeCore.so', '*/*/libDJIUpgradeJNI.so', '*/*/libDJIWaypointV2Core.so', '*/*/libAMapSDK_MAP_v6_9_2.so', '*/*/libDJIMOP.so', '*/*/libDJISDKLOGJNI.so']
+            pickFirsts += ['lib/*/libstlport_shared.so', 'lib/*/libRoadLineRebuildAPI.so', 'lib/*/libGNaviUtils.so', 'lib/*/libGNaviMapex.so', 'lib/*/libGNaviData.so', 'lib/*/libGNaviMap.so', 'lib/*/libGNaviSearch.so', 'lib/*/libDJIFlySafeCore.so', 'lib/*/libdjifs_jni.so', 'lib/*/libsfjni.so']
+        }
+        resources {
+            excludes += ['META-INF/proguard/okhttp3.pro', 'META-INF/rxjava.properties', 'assets/location_map_gps_locked.png', 'assets/location_map_gps_3d.png']
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -85,7 +58,7 @@ dependencies {
         // AMAP: Do not include if publishing to Google Play Store. you should exclude it
         // exclude group: 'com.amap.api'
     })
-    compileOnly ('com.dji:dji-sdk-provided:4.16.2')
+    compileOnly ('com.dji:dji-sdk-provided:4.16.4')
 
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
