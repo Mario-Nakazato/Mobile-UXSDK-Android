@@ -65,30 +65,27 @@ public class FlyZoneDialogView extends ScrollView {
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                switch (compoundButton.getId()) {
-                    case R.id.all:
-                        auth.setChecked(isChecked);
-                        warning.setChecked(isChecked);
-                        enhancedWarning.setChecked(isChecked);
-                        restricted.setChecked(isChecked);
-                        break;
-                    case R.id.custom_unlock_switch:
-                        btnCustomUnlockColor.setEnabled(isChecked);
-                        btnCustomUnlockSync.setEnabled(isChecked);
-                        if (isChecked) {
-                            mapWidget.showCustomUnlockZones(true);
-                        } else {
-                            mapWidget.showCustomUnlockZones(false);
-                        }
-                        break;
-                    default:
-                        all.setOnCheckedChangeListener(null);
-                        all.setChecked(auth.isChecked()
-                                           && warning.isChecked()
-                                           && enhancedWarning.isChecked()
-                                           && restricted.isChecked());
-                        all.setOnCheckedChangeListener(this);
-                        break;
+                int id = compoundButton.getId();
+                if (id == R.id.all) {
+                    auth.setChecked(isChecked);
+                    warning.setChecked(isChecked);
+                    enhancedWarning.setChecked(isChecked);
+                    restricted.setChecked(isChecked);
+                } else if (id == R.id.custom_unlock_switch) {
+                    btnCustomUnlockColor.setEnabled(isChecked);
+                    btnCustomUnlockSync.setEnabled(isChecked);
+                    if (isChecked) {
+                        mapWidget.showCustomUnlockZones(true);
+                    } else {
+                        mapWidget.showCustomUnlockZones(false);
+                    }
+                } else {
+                    all.setOnCheckedChangeListener(null);
+                    all.setChecked(auth.isChecked()
+                            && warning.isChecked()
+                            && enhancedWarning.isChecked()
+                            && restricted.isChecked());
+                    all.setOnCheckedChangeListener(this);
                 }
             }
         };
@@ -148,41 +145,35 @@ public class FlyZoneDialogView extends ScrollView {
 
                 int alpha = 26;
                 float strokeWidth = mapWidget.getFlyZoneBorderWidth();
-                switch (view.getId()) {
-                    case R.id.auth_color:
-                        alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.AUTHORIZATION);
-                        mapWidget.setFlyZoneColor(FlyZoneCategory.AUTHORIZATION, randomColor);
-                        break;
-                    case R.id.warning_color:
-                        alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.WARNING);
-                        mapWidget.setFlyZoneColor(FlyZoneCategory.WARNING, randomColor);
-                        break;
-                    case R.id.enhanced_warning_color:
-                        alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.ENHANCED_WARNING);
-                        mapWidget.setFlyZoneColor(FlyZoneCategory.ENHANCED_WARNING, randomColor);
-                        break;
-                    case R.id.restricted_color:
-                        alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.RESTRICTED);
-                        mapWidget.setFlyZoneColor(FlyZoneCategory.RESTRICTED, randomColor);
-                        break;
-                    case R.id.max_height_color:
-                        alpha = mapWidget.getMaximumHeightAlpha();
-                        mapWidget.setMaximumHeightColor(randomColor);
-                        break;
-                    case R.id.self_unlock_color:
-                        alpha = mapWidget.getSelfUnlockAlpha();
-                        mapWidget.setSelfUnlockColor(randomColor);
-                        break;
-                    case R.id.custom_unlock_color:
-                        mapWidget.setCustomUnlockFlyZoneOverlayColor(randomColor);
-                        randomColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                        mapWidget.setCustomUnlockFlyZoneSentToAircraftOverlayColor(randomColor);
-                        randomColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                        mapWidget.setCustomUnlockFlyZoneEnabledOverlayColor(randomColor);
-                        return;
-                    case R.id.custom_unlock_sync:
-                        mapWidget.syncCustomUnlockZones();
-                        return;
+                int id = view.getId();
+                if (id == R.id.auth_color) {
+                    alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.AUTHORIZATION);
+                    mapWidget.setFlyZoneColor(FlyZoneCategory.AUTHORIZATION, randomColor);
+                } else if (id == R.id.warning_color) {
+                    alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.WARNING);
+                    mapWidget.setFlyZoneColor(FlyZoneCategory.WARNING, randomColor);
+                } else if (id == R.id.enhanced_warning_color) {
+                    alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.ENHANCED_WARNING);
+                    mapWidget.setFlyZoneColor(FlyZoneCategory.ENHANCED_WARNING, randomColor);
+                } else if (id == R.id.restricted_color) {
+                    alpha = mapWidget.getFlyZoneAlpha(FlyZoneCategory.RESTRICTED);
+                    mapWidget.setFlyZoneColor(FlyZoneCategory.RESTRICTED, randomColor);
+                } else if (id == R.id.max_height_color) {
+                    alpha = mapWidget.getMaximumHeightAlpha();
+                    mapWidget.setMaximumHeightColor(randomColor);
+                } else if (id == R.id.self_unlock_color) {
+                    alpha = mapWidget.getSelfUnlockAlpha();
+                    mapWidget.setSelfUnlockColor(randomColor);
+                } else if (id == R.id.custom_unlock_color) {
+                    mapWidget.setCustomUnlockFlyZoneOverlayColor(randomColor);
+                    randomColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                    mapWidget.setCustomUnlockFlyZoneSentToAircraftOverlayColor(randomColor);
+                    randomColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                    mapWidget.setCustomUnlockFlyZoneEnabledOverlayColor(randomColor);
+                    return;
+                } else if (id == R.id.custom_unlock_sync) {
+                    mapWidget.syncCustomUnlockZones();
+                    return;
                 }
                 view.setBackground(getBackground(randomColor, alpha, strokeWidth));
             }

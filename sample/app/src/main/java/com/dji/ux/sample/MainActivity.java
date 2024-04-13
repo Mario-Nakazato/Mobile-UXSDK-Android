@@ -276,19 +276,15 @@ public class MainActivity extends Activity implements View.OnClickListener, Popu
     public boolean onMenuItemClick(MenuItem menuItem) {
         Intent intent = new Intent(this, MapWidgetActivity.class);
         int mapBrand = 0;
-        switch (menuItem.getItemId()) {
-            case R.id.here_map:
-                mapBrand = 0;
-                break;
-            case R.id.google_map:
-                mapBrand = 1;
-                break;
-            case R.id.amap:
-                mapBrand = 2;
-                break;
-            case R.id.mapbox:
-                mapBrand = 3;
-                break;
+        int itemId = menuItem.getItemId();
+        if (itemId == R.id.here_map) {
+            mapBrand = 0;
+        } else if (itemId == R.id.google_map) {
+            mapBrand = 1;
+        } else if (itemId == R.id.amap) {
+            mapBrand = 2;
+        } else if (itemId == R.id.mapbox) {
+            mapBrand = 3;
         }
         intent.putExtra(MapWidgetActivity.MAP_PROVIDER, mapBrand);
         startActivity(intent);

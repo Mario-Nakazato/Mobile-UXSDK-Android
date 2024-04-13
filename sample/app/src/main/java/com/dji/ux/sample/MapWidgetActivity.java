@@ -209,89 +209,69 @@ public class MapWidgetActivity extends Activity implements CompoundButton.OnChec
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        switch (compoundButton.getId()) {
-            case R.id.home_direction:
-                mapWidget.setDirectionToHomeVisible(isChecked);
-                break;
-            case R.id.lock_bounds:
-                mapWidget.setAutoFrameMap(isChecked);
-                break;
-            case R.id.flight_path:
-                mapWidget.setFlightPathVisible(isChecked);
-                break;
-            case R.id.home_point:
-                mapWidget.setHomeVisible(isChecked);
-                break;
-            case R.id.gimbal_yaw:
-                mapWidget.setGimbalAttitudeVisible(isChecked);
-                break;
-            case R.id.flyzone_unlock:
-                mapWidget.setTapToUnlockEnabled(isChecked);
-                break;
-            case R.id.flyzone_legend:
-                mapWidget.showFlyZoneLegend(isChecked);
-                break;
-            case R.id.login_state_indicator:
-                mapWidget.showDJIAccountLoginIndicator(isChecked);
-                break;
+        int id = compoundButton.getId();
+        if (id == R.id.home_direction) {
+            mapWidget.setDirectionToHomeVisible(isChecked);
+        } else if (id == R.id.lock_bounds) {
+            mapWidget.setAutoFrameMap(isChecked);
+        } else if (id == R.id.flight_path) {
+            mapWidget.setFlightPathVisible(isChecked);
+        } else if (id == R.id.home_point) {
+            mapWidget.setHomeVisible(isChecked);
+        } else if (id == R.id.gimbal_yaw) {
+            mapWidget.setGimbalAttitudeVisible(isChecked);
+        } else if (id == R.id.flyzone_unlock) {
+            mapWidget.setTapToUnlockEnabled(isChecked);
+        } else if (id == R.id.flyzone_legend) {
+            mapWidget.showFlyZoneLegend(isChecked);
+        } else if (id == R.id.login_state_indicator) {
+            mapWidget.showDJIAccountLoginIndicator(isChecked);
         }
     }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
 
-        switch (id) {
-            case R.id.map_center_aircraft:
-                mapWidget.setMapCenterLock(MapWidget.MapCenterLock.AIRCRAFT);
-                break;
-            case R.id.map_center_home:
-                mapWidget.setMapCenterLock(MapWidget.MapCenterLock.HOME);
-                break;
-            case R.id.map_center_none:
-                mapWidget.setMapCenterLock(MapWidget.MapCenterLock.NONE);
-                break;
+        if (id == R.id.map_center_aircraft) {
+            mapWidget.setMapCenterLock(MapWidget.MapCenterLock.AIRCRAFT);
+        } else if (id == R.id.map_center_home) {
+            mapWidget.setMapCenterLock(MapWidget.MapCenterLock.HOME);
+        } else if (id == R.id.map_center_none) {
+            mapWidget.setMapCenterLock(MapWidget.MapCenterLock.NONE);
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.clear_flight_path:
-                mapWidget.clearFlightPath();
-                break;
-            case R.id.replace:
-                VectorDrawable drawable = (VectorDrawable) selectedIcon.getDrawable();
-                if ("Aircraft".equals(iconSpinner.getSelectedItem())) {
-                    mapWidget.setAircraftBitmap(getBitmap(drawable));
-                } else if ("Home".equals(iconSpinner.getSelectedItem())) {
-                    mapWidget.setHomeBitmap(getBitmap(drawable));
-                } else if ("Gimbal Yaw".equals(iconSpinner.getSelectedItem())) {
-                    mapWidget.setGimbalAttitudeBitmap(getBitmap(drawable));
-                } else if ("Locked Zone".equals(iconSpinner.getSelectedItem())) {
-                    mapWidget.setSelfLockedBitmap(getBitmap(drawable), 0.5f, 0.5f);
-                } else if ("Unlocked Zone".equals(iconSpinner.getSelectedItem())) {
-                    mapWidget.setSelfUnlockedBitmap(getBitmap(drawable), 0.5f, 0.5f);
-                }
+        int id = view.getId();
+        if (id == R.id.clear_flight_path) {
+            mapWidget.clearFlightPath();
+        } else if (id == R.id.replace) {
+            VectorDrawable drawable = (VectorDrawable) selectedIcon.getDrawable();
+            if ("Aircraft".equals(iconSpinner.getSelectedItem())) {
+                mapWidget.setAircraftBitmap(getBitmap(drawable));
+            } else if ("Home".equals(iconSpinner.getSelectedItem())) {
+                mapWidget.setHomeBitmap(getBitmap(drawable));
+            } else if ("Gimbal Yaw".equals(iconSpinner.getSelectedItem())) {
+                mapWidget.setGimbalAttitudeBitmap(getBitmap(drawable));
+            } else if ("Locked Zone".equals(iconSpinner.getSelectedItem())) {
+                mapWidget.setSelfLockedBitmap(getBitmap(drawable), 0.5f, 0.5f);
+            } else if ("Unlocked Zone".equals(iconSpinner.getSelectedItem())) {
+                mapWidget.setSelfUnlockedBitmap(getBitmap(drawable), 0.5f, 0.5f);
+            }
+        } else if (id == R.id.icon_1 || id == R.id.icon_2 || id == R.id.icon_3 || id == R.id.icon_4 || id == R.id.icon_5) {
+            ImageView imageView = (ImageView) view;
+            imageView.setSelected(true);
+            selectedIcon.setSelected(false);
+            selectedIcon = imageView;
+        } else if (id == R.id.btn_map_provider_test) {
+            addOverlay();
+        } else if (id == R.id.line_color) {
+            setRandomLineColor();
 
-                break;
-            case R.id.icon_1:
-            case R.id.icon_2:
-            case R.id.icon_3:
-            case R.id.icon_4:
-            case R.id.icon_5:
-                ImageView imageView = (ImageView) view;
-                imageView.setSelected(true);
-                selectedIcon.setSelected(false);
-                selectedIcon = imageView;
-                break;
-            case R.id.btn_map_provider_test:
-                addOverlay();
-                break;
-            case R.id.line_color:
-                setRandomLineColor();
-            case R.id.btn_settings:
-                movePanel();
-                break;
+            movePanel();
+        } else if (id == R.id.btn_settings) {
+            movePanel();
         }
     }
 
@@ -407,44 +387,42 @@ public class MapWidgetActivity extends Activity implements CompoundButton.OnChec
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        switch (parent.getId()) {
-            case R.id.map_spinner:
-                if (mapWidget.getMap() != null) {
-                    switch ((int) id) {
-                        case 0:
-                            mapWidget.getMap().setMapType(DJIMap.MapType.NORMAL);
-                            break;
-                        case 1:
-                            mapWidget.getMap().setMapType(DJIMap.MapType.SATELLITE);
-                            break;
-                        default:
-                            mapWidget.getMap().setMapType(DJIMap.MapType.HYBRID);
-                            break;
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), R.string.error_map_not_initialized, Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.line_spinner:
-                int width = 5;
+        int parentId = parent.getId();
+        if (parentId == R.id.map_spinner) {
+            if (mapWidget.getMap() != null) {
                 switch ((int) id) {
                     case 0:
-                        width = (int) mapWidget.getDirectionToHomeWidth();
-                        lineColor.setVisibility(View.VISIBLE);
-                        lineColor.setTextColor(mapWidget.getDirectionToHomeColor());
+                        mapWidget.getMap().setMapType(DJIMap.MapType.NORMAL);
                         break;
                     case 1:
-                        width = (int) mapWidget.getFlightPathWidth();
-                        lineColor.setVisibility(View.VISIBLE);
-                        lineColor.setTextColor(mapWidget.getFlightPathColor());
+                        mapWidget.getMap().setMapType(DJIMap.MapType.SATELLITE);
                         break;
-                    case 2:
-                        width = (int) mapWidget.getFlyZoneBorderWidth();
-                        lineColor.setVisibility(View.GONE);
+                    default:
+                        mapWidget.getMap().setMapType(DJIMap.MapType.HYBRID);
                         break;
                 }
-                lineWidthPicker.setProgress(width);
-                break;
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.error_map_not_initialized, Toast.LENGTH_SHORT).show();
+            }
+        } else if (parentId == R.id.line_spinner) {
+            int width = 5;
+            switch ((int) id) {
+                case 0:
+                    width = (int) mapWidget.getDirectionToHomeWidth();
+                    lineColor.setVisibility(View.VISIBLE);
+                    lineColor.setTextColor(mapWidget.getDirectionToHomeColor());
+                    break;
+                case 1:
+                    width = (int) mapWidget.getFlightPathWidth();
+                    lineColor.setVisibility(View.VISIBLE);
+                    lineColor.setTextColor(mapWidget.getFlightPathColor());
+                    break;
+                case 2:
+                    width = (int) mapWidget.getFlyZoneBorderWidth();
+                    lineColor.setVisibility(View.GONE);
+                    break;
+            }
+            lineWidthPicker.setProgress(width);
         }
     }
 
@@ -461,63 +439,59 @@ public class MapWidgetActivity extends Activity implements CompoundButton.OnChec
 
         float testLat = 37.4419f;
         float testLng = -122.1430f;
-        switch (mapProvider) {
-            case 0:
-                if (mapOverlay == null) {
-                    hereMap = (Map) mapWidget.getMap().getMap();
-                    ImageView overlayView = new ImageView(MapWidgetActivity.this);
-                    overlayView.setImageDrawable(getResources().getDrawable(R.drawable.ic_drone));
-                    GeoCoordinate testLocation = new GeoCoordinate(testLat, testLng);
-                    mapOverlay = new MapOverlay(overlayView, testLocation);
-                    hereMap.addMapOverlay(mapOverlay);
-                } else {
-                    hereMap.removeMapOverlay(mapOverlay);
-                    mapOverlay = null;
-                }
-                break;
-            case 1:
-                if (groundOverlay == null) {
-                    googleMap = (GoogleMap) mapWidget.getMap().getMap();
-                    LatLng latLng1 = new LatLng(testLat, testLng);
-                    LatLng latLng2 = new LatLng(testLat + 0.25, testLng + 0.25);
-                    LatLng latLng3 = new LatLng(testLat - 0.25, testLng - 0.25);
-                    LatLngBounds bounds = new LatLngBounds(latLng1, latLng2).including(latLng3);
-                    BitmapDescriptor aircraftImage = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(
+        if (mapProvider == 0) {
+            if (mapOverlay == null) {
+                hereMap = (Map) mapWidget.getMap().getMap();
+                ImageView overlayView = new ImageView(MapWidgetActivity.this);
+                overlayView.setImageDrawable(getResources().getDrawable(R.drawable.ic_drone));
+                GeoCoordinate testLocation = new GeoCoordinate(testLat, testLng);
+                mapOverlay = new MapOverlay(overlayView, testLocation);
+                hereMap.addMapOverlay(mapOverlay);
+            } else {
+                hereMap.removeMapOverlay(mapOverlay);
+                mapOverlay = null;
+            }
+        } else if (mapProvider == 1) {
+            if (groundOverlay == null) {
+                googleMap = (GoogleMap) mapWidget.getMap().getMap();
+                LatLng latLng1 = new LatLng(testLat, testLng);
+                LatLng latLng2 = new LatLng(testLat + 0.25, testLng + 0.25);
+                LatLng latLng3 = new LatLng(testLat - 0.25, testLng - 0.25);
+                LatLngBounds bounds = new LatLngBounds(latLng1, latLng2).including(latLng3);
+                BitmapDescriptor aircraftImage = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(
                         getResources(),
-                        R.drawable.ic_compass_aircraft));
-                    GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions();
-                    groundOverlayOptions.image(aircraftImage)
-                                        .positionFromBounds(bounds)
-                                        .transparency(0.5f)
-                                        .visible(true);
-                    groundOverlay = googleMap.addGroundOverlay(groundOverlayOptions);
-                } else {
-                    groundOverlay.remove();
-                    groundOverlay = null;
+                        dji.ux.R.drawable.ic_compass_aircraft));
+                GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions();
+                groundOverlayOptions.image(aircraftImage)
+                        .positionFromBounds(bounds)
+                        .transparency(0.5f)
+                        .visible(true);
+                groundOverlay = googleMap.addGroundOverlay(groundOverlayOptions);
+            } else {
+                groundOverlay.remove();
+                groundOverlay = null;
+            }
+        } else if (mapProvider == 2) {
+            if (tileOverlay == null) {
+                aMap = (AMap) mapWidget.getMap().getMap();
+                com.amap.api.maps.model.LatLng[] latlngs = new com.amap.api.maps.model.LatLng[500];
+                for (int i = 0; i < 500; i++) {
+                    double x_ = 0;
+                    double y_ = 0;
+                    x_ = Math.random() * 0.5 - 0.25;
+                    y_ = Math.random() * 0.5 - 0.25;
+                    latlngs[i] = new com.amap.api.maps.model.LatLng(testLat + x_, testLng + y_);
                 }
-                break;
-            case 2:
-                if (tileOverlay == null) {
-                    aMap = (AMap) mapWidget.getMap().getMap();
-                    com.amap.api.maps.model.LatLng[] latlngs = new com.amap.api.maps.model.LatLng[500];
-                    for (int i = 0; i < 500; i++) {
-                        double x_ = 0;
-                        double y_ = 0;
-                        x_ = Math.random() * 0.5 - 0.25;
-                        y_ = Math.random() * 0.5 - 0.25;
-                        latlngs[i] = new com.amap.api.maps.model.LatLng(testLat + x_, testLng + y_);
-                    }
-                    HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
-                    builder.data(Arrays.asList(latlngs));
-                    HeatmapTileProvider heatmapTileProvider = builder.build();
-                    TileOverlayOptions tileOverlayOptions = new TileOverlayOptions();
-                    tileOverlayOptions.tileProvider(heatmapTileProvider).visible(true);
-                    tileOverlay = aMap.addTileOverlay(tileOverlayOptions);
-                } else {
-                    tileOverlay.remove();
-                    tileOverlay = null;
-                }
-                break;
+                HeatmapTileProvider.Builder builder = new HeatmapTileProvider.Builder();
+                builder.data(Arrays.asList(latlngs));
+                HeatmapTileProvider heatmapTileProvider = builder.build();
+                TileOverlayOptions tileOverlayOptions = new TileOverlayOptions();
+                tileOverlayOptions.tileProvider(heatmapTileProvider).visible(true);
+                tileOverlay = aMap.addTileOverlay(tileOverlayOptions);
+            } else {
+                tileOverlay.remove();
+                tileOverlay = null;
+            }
         }
     }
 

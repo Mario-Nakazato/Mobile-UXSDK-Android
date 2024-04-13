@@ -85,7 +85,7 @@ public class CompleteWidgetActivity extends Activity {
         deviceWidth = outPoint.x;
 
         mapWidget = (MapWidget) findViewById(R.id.map_widget);
-        mapWidget.initAMap(map -> map.setOnMapClickListener((DJIMap.OnMapClickListener) latLng -> onViewClick(mapWidget)));
+        mapWidget.initGoogleMap(map -> map.setOnMapClickListener((DJIMap.OnMapClickListener) latLng -> onViewClick(mapWidget)));
         mapWidget.onCreate(savedInstanceState);
 
         initCameraView();

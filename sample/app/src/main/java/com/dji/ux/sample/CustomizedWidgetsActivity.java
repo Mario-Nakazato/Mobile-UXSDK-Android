@@ -80,33 +80,26 @@ public class CustomizedWidgetsActivity extends Activity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.primary_video_feed:
-                fpvWidget.setVideoSource(FPVWidget.VideoSource.PRIMARY);
-                //fpvOverlayWidget.setOverlayVideoSource(FPVWidget.VideoSource.PRIMARY);
-                secondaryFpvWidget.setVideoSource(FPVWidget.VideoSource.SECONDARY);
-                break;
-            case R.id.secondary_video_feed:
-                fpvWidget.setVideoSource(FPVWidget.VideoSource.SECONDARY);
-                //fpvOverlayWidget.setOverlayVideoSource(FPVWidget.VideoSource.SECONDARY);
-                secondaryFpvWidget.setVideoSource(FPVWidget.VideoSource.PRIMARY);
-                break;
-            case R.id.auto_video_feed:
-                fpvWidget.setVideoSource(FPVWidget.VideoSource.AUTO);
-                break;
-            case R.id.change_size:
-                resizeView();
-                break;
-            case R.id.grid_type_none:
-                fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.NONE);
-                break;
-            case R.id.grid_type_parallel:
-                fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.PARALLEL);
-                break;
-            case R.id.grid_type_parallel_diagonal:
-                fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.PARALLEL_DIAGONAL);
-                break;
-            /*case R.id.center_point_none:
+        int id = v.getId();
+        if (id == R.id.primary_video_feed) {
+            fpvWidget.setVideoSource(FPVWidget.VideoSource.PRIMARY);
+            //fpvOverlayWidget.setOverlayVideoSource(FPVWidget.VideoSource.PRIMARY);
+            secondaryFpvWidget.setVideoSource(FPVWidget.VideoSource.SECONDARY);
+        } else if (id == R.id.secondary_video_feed) {
+            fpvWidget.setVideoSource(FPVWidget.VideoSource.SECONDARY);
+            //fpvOverlayWidget.setOverlayVideoSource(FPVWidget.VideoSource.SECONDARY);
+            secondaryFpvWidget.setVideoSource(FPVWidget.VideoSource.PRIMARY);
+        } else if (id == R.id.auto_video_feed) {
+            fpvWidget.setVideoSource(FPVWidget.VideoSource.AUTO);
+        } else if (id == R.id.change_size) {
+            resizeView();
+        } else if (id == R.id.grid_type_none) {
+            fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.NONE);
+        } else if (id == R.id.grid_type_parallel) {
+            fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.PARALLEL);
+        } else if (id == R.id.grid_type_parallel_diagonal) {
+            fpvOverlayWidget.setCurrentGridOverlayType(FPVOverlayWidget.GridOverlayType.PARALLEL_DIAGONAL);
+                /*case R.id.center_point_none:
                 fpvOverlayWidget.setCenterPointType(FPVOverlayWidget.CenterPointType.NONE);
                 break;
             case R.id.center_point_standard:
@@ -139,40 +132,32 @@ public class CustomizedWidgetsActivity extends Activity implements View.OnClickL
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.checkbox_primary_camera_name:
-                fpvWidget.setSourceCameraNameVisibility(isChecked);
-                break;
-            case R.id.checkbox_secondary_camera_name:
-                secondaryFpvWidget.setSourceCameraNameVisibility(isChecked);
-                break;
-            case R.id.checkbox_primary_camera_side:
-                fpvWidget.setSourceCameraSideVisibility(isChecked);
-                break;
-            case R.id.checkbox_secondary_camera_side:
-                secondaryFpvWidget.setSourceCameraSideVisibility(isChecked);
-                break;
-            /*case R.id.checkbox_primary_overexposure_warning:
+        int id = buttonView.getId();
+        if (id == R.id.checkbox_primary_camera_name) {
+            fpvWidget.setSourceCameraNameVisibility(isChecked);
+        } else if (id == R.id.checkbox_secondary_camera_name) {
+            secondaryFpvWidget.setSourceCameraNameVisibility(isChecked);
+        } else if (id == R.id.checkbox_primary_camera_side) {
+            fpvWidget.setSourceCameraSideVisibility(isChecked);
+        } else if (id == R.id.checkbox_secondary_camera_side) {
+            secondaryFpvWidget.setSourceCameraSideVisibility(isChecked);
+                /*case R.id.checkbox_primary_overexposure_warning:
                 fpvWidget.setOverexposureWarningEnabled(isChecked);
                 break;
             case R.id.checkbox_secondary_overexposure_warning:
                 secondaryFpvWidget.setOverexposureWarningEnabled(isChecked);
                 break;*/
-            case R.id.checkbox_touch_focus:
-                fpvOverlayWidget.setTouchFocusEnabled(isChecked);
-                break;
-            case R.id.checkbox_touch_metering:
-                fpvOverlayWidget.setSpotMeteringEnabled(isChecked);
-                break;
-            case R.id.checkbox_gimbal_control:
-                fpvOverlayWidget.setGimbalControlEnabled(isChecked);
-                break;
-            case R.id.checkbox_display_grid:
-                fpvOverlayWidget.setGridOverlayEnabled(isChecked);
-                break;
+        } else if (id == R.id.checkbox_touch_focus) {
+            fpvOverlayWidget.setTouchFocusEnabled(isChecked);
+        } else if (id == R.id.checkbox_touch_metering) {
+            fpvOverlayWidget.setSpotMeteringEnabled(isChecked);
+        } else if (id == R.id.checkbox_gimbal_control) {
+            fpvOverlayWidget.setGimbalControlEnabled(isChecked);
+        } else if (id == R.id.checkbox_display_grid) {
+            fpvOverlayWidget.setGridOverlayEnabled(isChecked);
             //case R.id.checkbox_display_center_point:
-                //fpvOverlayWidget.setCenterPointEnabled(isChecked);
-                //break;
+            //fpvOverlayWidget.setCenterPointEnabled(isChecked);
+            //break;
         }
 
     }
