@@ -1,4 +1,20 @@
-# DJI UX SDK for Android Latest Version 4.16.2
+# Derivação do projeto DJI UX SDK for Android Latest Version 4.16.2
+
+#### O projeto conta com três versões utilizando o conjunto do UX SDK da DJI para acelerar o desenvolvimento de aplicativos
+
+![UI Screen](./images/optionsScreen.png)
+
+#### Versão padrão do UX SDK da DJI com o adicional de um mapa alternando entre o feedback da câmera e o mapa
+
+![UI Screen](./images/defaultScreen.png)
+
+#### Versão personalizada com adições de outras funcionalidades dependendo das necessidades do aplicativo
+
+![UI Screen](./images/customScreen.png)
+
+#### Versão para diferentes tipos de provedor de mapa como: Here Maps, Google Maps, AMaps e Mapbox
+
+![UI Screen](./images/mapScreen.png)
 
 ## What is This?
 
